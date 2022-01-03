@@ -1,4 +1,4 @@
-
+#include "list_child.h"
 #include "list_relasi.h"
 
 void createList(List_relasi &L) {
@@ -35,6 +35,22 @@ void insertFirst(List_relasi &L, address_relasi P) {
     next(P) = first(L);
     first(L) = P;
 
+}
+
+void insertLast(List_relasi &L, address_relasi P){
+
+
+    address_relasi Q = first(L);
+
+    if (first(L) == NULL) {
+        first(L) = P;
+    } else {
+        while (next(Q) != NULL) {
+            Q = next(Q);
+        }
+
+        next(Q) = P;
+    }
 }
 
 
@@ -85,11 +101,15 @@ void deleteLast(List_relasi &L, address_relasi &P){
     next(q)= NULL;
 };
 
-void deleteAfter(List_relasi &L,address_relasi Prec, address_relasi &P){
+void deleteAfterRelasi(List_relasi &L,address_relasi Prec, address_relasi &P){
     P = next(Prec);
     next(Prec) = next(P);
     next(P) = NULL;
 };
+
+
+
+
 
 
 address_child CariNamaPesertaEvent(List_relasi &L, string nama_peserta)

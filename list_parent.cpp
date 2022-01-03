@@ -1,5 +1,5 @@
-
 #include "list_parent.h"
+#include "list_child.h"
 
 void createList(List_parent &L)
 {
@@ -136,5 +136,59 @@ void hapus_parents(List_parent &L ,string nama, address_parent &P){
         }
     }
 }
+
+void connect(List_relasi &LR, List_parent LP, List_child LC, string px, string cx)
+{
+    address_parent p = findNamaevent(LP,px);
+    address_child c = findNopeserta(LC,cx);
+    if(p!=NULL && c!=NULL){
+        address_relasi r = alokasi(c);
+        if(info(p).jumlah<info(p).kouta_maks){
+            insertLast(child(p),r);
+            info(p).jumlah++;
+            info(c).jenis_peserta = "reguler";
+        }else{
+            info(c).jenis_peserta = "waiting_list";
+        }
+    }
+}
+
+
+void hapus_relasi(List_relasi &LR,List_parent &LP,List_child &LC,string px, string cx)
+{
+    address_relasi Prec,Q,P;
+    address_parent X;
+    X = findNamaevent(LP,px);
+    address_child C = findNopeserta(LC, cx);
+    P = findElm(LR, C);
+    if (P == NULL){
+        cout<<"Kosong"<<endl;
+    }else{
+        if (P == first(LR)){
+            //memanggil procedure deleteFirst
+            deleteFirst(LR,Q);
+            info(X).jumlah--;
+            info(C).jenis_peserta = "-";
+            address_child cp = first(LC);
+            while(info(cp).jenis_peserta!="waiting_list" && next(cp)!=NULL){
+                cp = next(cp);
+            }
+            connect(LR,LP,LC,info(X).nama_event,info(cp).no_peserta);
+        }else if(next(P) == NULL){
+            //memanggil procedure deleteLast
+
+            deleteLast(LR, Q);
+            info(X).jumlah--;
+            info(C).jenis_peserta = "-";
+            address_child cp = first(LC);
+            while(info(cp).jenis_peserta!="waiting_list" && next(cp)!=NULL){
+                cp = next(cp);
+            }
+            connect(LR,LP,LC,info(X).nama_event,info(cp).no_peserta);
+        }
+    }
+
+}
+
 
 

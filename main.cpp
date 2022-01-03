@@ -33,7 +33,7 @@ int main()
     dataP.jenis_event = "Basket";
     dataP.tgl = "07";
     dataP.tempat = "Bogor";
-    dataP.kouta_maks = 10;
+    dataP.kouta_maks = 2;
     dataP.jumlah = 0;
     newElm_data(dataP, AP);
     insertFirst(LP,AP);
@@ -49,37 +49,68 @@ int main()
 
     dataC.nama_peserta = "budi";
     dataC.no_peserta = "001";
+    dataC.no_tempat_duduk = 2;
     newElm_data(dataC, AC);
     insertFirst(LC,AC);
 
     dataC.nama_peserta = "andi";
     dataC.no_peserta = "002";
+    dataC.no_tempat_duduk = 2;
     newElm_data(dataC, AC);
     insertFirst(LC,AC);
 
     dataC.nama_peserta = "udin";
-     dataC.no_peserta = "003";
+    dataC.no_peserta = "003";
+    dataC.no_tempat_duduk = 0;
     newElm_data(dataC, AC);
     insertFirst(LC,AC);
 
     dataC.nama_peserta = "edi";
-     dataC.no_peserta = "004";
+    dataC.no_peserta = "004";
+    dataC.no_tempat_duduk = 0;
     newElm_data(dataC, AC);
     insertFirst(LC,AC);
 
- printInfo(LC);
+    printInfo(LC);
     cout<<"Setelah Relasi"<<endl;
 
-
+/*
     AP = findNamaevent(LP,"EVENT4");
-    AC = findNopeserta(LC,"003");
+    AC = findNopeserta(LC,"001");
     R = alokasi(AC);
     insertFirst(child(AP),R);
 
+    AP = findNamaevent(LP,"EVENT4");
+    AC = findNopeserta(LC,"004");
+    R = alokasi(AC);
+    insertFirst(child(AP),R);
+
+    printInfo(LP);
+    deleteLast(child(AP),R);
+    printInfo(LP);
+*/
     cout<<endl;
+
+
+    connect(LR, LP, LC, "EVENT3", "001");
+
+    connect(LR, LP, LC, "EVENT3", "002");
+    connect(LR, LP, LC, "EVENT3", "003");
+
+    connect(LR, LP, LC, "EVENT4", "004");
+
+
+    cout<<endl;
+    cout<<endl;
+
+
+    cout<<"setelah diskonek"<<endl;
+
+    hapus_relasi(child(AP),LP,LC,"EVENT3","002");
 
     printInfo(LP);
 
+    printInfo(LC);
     /*
     string x;
     int pilihan = selectMenu();

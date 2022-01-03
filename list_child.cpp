@@ -25,6 +25,8 @@ void insertFirst(List_child &L, address_child p)
     }
 }
 
+
+
 void deleteFirst(List_child &L, address_child &P){
     P = first(L);
     if (next(first(L)) == NULL) {
@@ -63,26 +65,26 @@ address_child findNopeserta(List_child &L, string no_peserta)
     return NULL;
 }
 
-void hapus_childs(List_child &L ,string nama, address_child &P){
-    address_child prec;
-
-    if(first(L)== NULL){
-        cout<<" Data Document Kosong "<<endl;
-
-    }else {
-        prec = first(L);
-        while(info(prec).nama_peserta != nama && next(prec)!= first(L)){
-            prec =next(prec);
-        }
-        if(first(L)== prec){
-            deleteFirst(L , P);
-        }else if(info(prec).nama_peserta == nama && next(prec)== first(L)){
-            deleteLast(L,P);
-        }else if(info(prec).nama_peserta != nama && next(prec)== first(L)){
-            cout<<" documen yang ingin di hapus tidak ditemukan "<<endl;
+void hapus_childs(List_child &L ,string no)
+{
+    address_child Prec,Q;
+    address_child P = findNopeserta(L,no);
+    if (P == NULL){
+        cout<<"Data NIP tidak ada";
+    }else{
+        if (P == first(L)){
+            //memanggil procedure deleteFirst
+            deleteFirst(L,Q);
+        }else if(next(P)== NULL){
+            //memanggil procedure deleteLast
+            deleteLast(L, Q);
         }else{
-            prec = prev(prec);
-            deleteAfter(L,prec,P);
+            Prec = first(L);
+            while (next(Prec) != P){
+                Prec = next(Prec);
+            }
+            //memanggil procedure deleteAfter
+            deleteAfter(L, Prec, Q);
         }
     }
 }

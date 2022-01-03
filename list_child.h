@@ -44,7 +44,7 @@ void printInfo(List_child L);
 void newElm_data(Data_peserta info, address_child &S);
 address_child findNopeserta(List_child &L, string no_peserta);
 void deleteElm(List_child &L, address_child p);
-void hapus_childs(List_child &L ,string nama, address_child &P);
+void hapus_childs(List_child &L ,string no);
 
 void insertFirst(List_child &L, address_child P);
 void insertAfter(List_child &L, address_child Prec, address_child P);
