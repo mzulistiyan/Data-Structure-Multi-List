@@ -1,28 +1,29 @@
 # depslib dependency file v1.0
-1641194726 source:h:\telkom\semester - 3\struktur data\praktikum\tubes\tubes\list_child.cpp
+1641300435 source:h:\telkom\semester - 3\struktur data\praktikum\tubes\tubes\list_child.cpp
 	"list_child.h"
 
-1641192844 h:\telkom\semester - 3\struktur data\praktikum\tubes\tubes\list_child.h
+1641294750 h:\telkom\semester - 3\struktur data\praktikum\tubes\tubes\list_child.h
 	<iostream>
 
-1641196428 source:h:\telkom\semester - 3\struktur data\praktikum\tubes\tubes\main.cpp
+1641310496 source:h:\telkom\semester - 3\struktur data\praktikum\tubes\tubes\main.cpp
 	"list_child.h"
 	"list_parent.h"
 	"list_relasi.h"
 
-1641196538 source:h:\telkom\semester - 3\struktur data\praktikum\tubes\tubes\list_parent.cpp
+1641311901 source:h:\telkom\semester - 3\struktur data\praktikum\tubes\tubes\list_parent.cpp
 	"list_parent.h"
 	"list_child.h"
 
-1641193608 h:\telkom\semester - 3\struktur data\praktikum\tubes\tubes\list_parent.h
+1641311931 h:\telkom\semester - 3\struktur data\praktikum\tubes\tubes\list_parent.h
 	<iostream>
 	"list_relasi.h"
 
-1641194769 h:\telkom\semester - 3\struktur data\praktikum\tubes\tubes\list_relasi.h
+1641311875 h:\telkom\semester - 3\struktur data\praktikum\tubes\tubes\list_relasi.h
 	"list_child.h"
 	<iostream>
 
-1641194783 source:h:\telkom\semester - 3\struktur data\praktikum\tubes\tubes\list_relasi.cpp
+1641311869 source:h:\telkom\semester - 3\struktur data\praktikum\tubes\tubes\list_relasi.cpp
 	"list_child.h"
 	"list_relasi.h"
+	"list_parent.h"
 

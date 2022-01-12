@@ -1,6 +1,6 @@
 #include "list_child.h"
 #include "list_relasi.h"
-
+#include "list_parent.h"
 void createList(List_relasi &L) {
     first(L) = NULL;
 }
@@ -55,8 +55,9 @@ void insertLast(List_relasi &L, address_relasi P){
 
 
 void printInfo(List_relasi L) {
+
     address_relasi P = first(L);
-    while(P !=NULL) {
+    while(P !=NULL && info(info(P)).jenis_peserta != "waiting_list") {
         cout<<"===================== LIST PESERTA EVENT ======================"<<endl;
         cout<<"No Peserta                  :"<<info(info(P)).no_peserta<<endl;
         cout<<"Nama Peserta                :"<<info(info(P)).nama_peserta<<endl;
@@ -101,7 +102,7 @@ void deleteLast(List_relasi &L, address_relasi &P){
     next(q)= NULL;
 };
 
-void deleteAfterRelasi(List_relasi &L,address_relasi Prec, address_relasi &P){
+void deleteAfterRelasi(address_relasi Prec, address_relasi &P){
     P = next(Prec);
     next(Prec) = next(P);
     next(P) = NULL;

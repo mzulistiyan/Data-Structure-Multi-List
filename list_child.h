@@ -4,6 +4,8 @@
 #include <iostream>
 using namespace std;
 
+
+
 #define first(L) L.first
 #define next(P) P->next
 #define info(P) P->info

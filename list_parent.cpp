@@ -1,6 +1,6 @@
 #include "list_parent.h"
-#include "list_child.h"
 
+#include "list_child.h"
 void createList(List_parent &L)
 {
     first(L) = NULL;
@@ -18,7 +18,7 @@ void newElm_data(Data_event info, address_parent &S)
 
 void insertFirst(List_parent &L, address_parent P)
 {
-     address_parent q = first(L);
+
      if (first(L) == NULL){
         first(L) = P;
         next(first(L)) = first(L);
@@ -141,53 +141,85 @@ void connect(List_relasi &LR, List_parent LP, List_child LC, string px, string c
 {
     address_parent p = findNamaevent(LP,px);
     address_child c = findNopeserta(LC,cx);
-    if(p!=NULL && c!=NULL){
-        address_relasi r = alokasi(c);
+    if(p!=NULL && c!=NULL ){
+
         if(info(p).jumlah<info(p).kouta_maks){
+            info(c).no_tempat_duduk = info(p).jumlah + 1;
+            address_relasi r = alokasi(c);
             insertLast(child(p),r);
             info(p).jumlah++;
             info(c).jenis_peserta = "reguler";
+
         }else{
+            address_relasi r = alokasi(c);
+            insertLast(child(p),r);
             info(c).jenis_peserta = "waiting_list";
         }
     }
 }
 
-
 void hapus_relasi(List_relasi &LR,List_parent &LP,List_child &LC,string px, string cx)
 {
     address_relasi Prec,Q,P;
     address_parent X;
+    int tempat_duduk;
     X = findNamaevent(LP,px);
     address_child C = findNopeserta(LC, cx);
-    P = findElm(LR, C);
+    P = findElm(child(X), C);
     if (P == NULL){
-        cout<<"Kosong"<<endl;
+        cout<<"List Kosong"<<endl;
     }else{
-        if (P == first(LR)){
+        if(P == first(child(X))){
+            tempat_duduk = info(C).no_tempat_duduk;
             //memanggil procedure deleteFirst
-            deleteFirst(LR,Q);
+            deleteFirst(child(X),Q);
             info(X).jumlah--;
             info(C).jenis_peserta = "-";
-            address_child cp = first(LC);
-            while(info(cp).jenis_peserta!="waiting_list" && next(cp)!=NULL){
+            address_relasi cp = first(child(X));
+            while(info(info(cp)).jenis_peserta != "waiting_list" && next(cp)!=NULL ){
                 cp = next(cp);
             }
-            connect(LR,LP,LC,info(X).nama_event,info(cp).no_peserta);
+            if(info(info(cp)).jenis_peserta == "waiting_list"){
+                info(info(cp)).jenis_peserta = "reguler";
+                info(X).jumlah++;
+                info(info(cp)).no_tempat_duduk = tempat_duduk;
+            }
         }else if(next(P) == NULL){
             //memanggil procedure deleteLast
-
             deleteLast(LR, Q);
             info(X).jumlah--;
             info(C).jenis_peserta = "-";
-            address_child cp = first(LC);
-            while(info(cp).jenis_peserta!="waiting_list" && next(cp)!=NULL){
+            address_relasi cp = first(child(X));
+            while(info(info(cp)).jenis_peserta != "waiting_list" && next(cp)!=NULL ){
                 cp = next(cp);
             }
-            connect(LR,LP,LC,info(X).nama_event,info(cp).no_peserta);
+            if(info(info(cp)).jenis_peserta == "waiting_list"){
+                info(info(cp)).jenis_peserta = "reguler";
+                info(X).jumlah++;
+                info(info(cp)).no_tempat_duduk = tempat_duduk;
+            }
+        }else{
+            Prec = first(LR);
+            while (next(Prec) != P){
+                Prec = next(Prec);
+            }
+            //memanggil procedure deleteAfter
+            deleteAfterRelasi(Prec, Q);
+            info(X).jumlah--;
+            info(C).jenis_peserta = "-";
+            address_relasi cp = first(child(X));
+
+            while(info(info(cp)).jenis_peserta != "waiting_list" && next(cp)!=NULL ){
+                cp = next(cp);
+            }
+
+            if(info(info(cp)).jenis_peserta == "waiting_list"){
+                info(info(cp)).jenis_peserta = "reguler";
+                info(X).jumlah++;
+                info(info(cp)).no_tempat_duduk = tempat_duduk;
+            }
         }
     }
-
 }
 
 

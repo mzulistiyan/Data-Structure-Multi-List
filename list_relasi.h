@@ -26,8 +26,7 @@ struct List_relasi{
 
 void createList(List_relasi &L);
 void insertFirst(List_relasi &L, address_relasi P);
-void insertLast(List_relasi &L, address_relasi P);
-void insertAfter(address_relasi Prec, address_relasi P);
+
 void deleteFirst(List_relasi &L, address_relasi &P);
 void deleteLast(List_relasi &L, address_relasi &P);
 void deleteAfterRelasi(address_relasi Prec, address_relasi &P);
@@ -40,8 +39,8 @@ int selectMenu();
 void insertLast(List_relasi &L, address_relasi P);
 void hapus_relasi(List_relasi &L ,string no);
 
-address_relasi alokasi( address_child C);
-void dealokasi(address_relasi &P);
+address_relasi alokasi(address_child C);
+
 address_relasi findElm(List_relasi L);
 void printInfo(List_relasi L);
 
