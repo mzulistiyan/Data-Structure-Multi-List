@@ -1,4 +1,3 @@
-
 #ifndef LIST_PARENT_H_INCLUDED
 #define LIST_PARENT_H_INCLUDED
 
@@ -7,27 +6,22 @@ using namespace std;
 
 #include "list_relasi.h"
 
-
-#define first(L) L.first
-#define next(P) P->next
 #define info(P) P->info
-#define child(P) P->child
-#define relasi(P) P->relasi
+#define next(P) P->next
 #define prev(p) p->prev
 
+#define child(P) P->child
+#define relasi(P) P->relasi
+
+#define first(L) L.first
 
 struct Data_event{
-    string nama_event;
-    string jenis_event;
-    string tgl;
-    string tempat;
-    int kouta_maks;
-    int jumlah;
+    string nama_event, jenis_event, tanggal_pelaksanaan, tempat_pelaksanaan;
+    int quota_maks, jumlah;
 };
 
-
-
 typedef struct elmlist_parent *address_parent;
+
 struct elmlist_parent {
     Data_event info;
     address_parent next;
@@ -40,26 +34,25 @@ struct List_parent {
     address_parent first;
 };
 
+void createList(List_parent &Lp);
+void newElm_data(Data_event info, address_parent &Pp);
+void insertEvent(List_parent &Lp, address_parent Pp);
+void deleteFirst(List_parent &Lp, address_parent &Pp);
+void deleteLast(List_parent &Lp, address_parent &Pp);
+void deleteAfter(address_parent prec, address_parent &Pp);
+void DeleteEvent(List_parent &Lp, string nama_event, address_parent &Pp);
+address_parent find_namaEvent(List_parent &Lp, string nama_event);
 
-void createList(List_parent &L);
-void newElm_data(Data_event info, address_parent &S);
-void printInfo(List_parent &L);
+/*========================*/
+void connect(List_relasi &Lr, List_parent Lp, List_child Lc, string nama_event, string nama_peserta);
+void hapus_relasi(List_parent &Lp, List_child &Lc, List_relasi &Lr, string nama_event, string nama_peserta);
+void infoParent(address_parent Pp);
+void printParent(List_parent &Lp);
+void printParent_only(List_parent &Lp);
+void printParent_available(List_parent &Lp);
 
-void hapus_parents(List_parent &L ,string nama, address_parent &P);
-void insertFirst(List_parent &L, address_parent P);
-
-
-
-void hapus_relasi(List_relasi &LR,List_parent &LP,List_child &LC,string px,string cx);
-
-void deleteFirst(List_parent &L, address_parent &P);
-void deleteLast(List_parent &L, address_parent &P);
-void deleteAfter(List_parent &L, address_parent Prec, address_parent &P);
-void delete_Event(List_parent &L ,string nama_event, address_parent &P);
-address_parent findNamaevent(List_parent &L, string nama_event);
-address_relasi findElm(List_relasi L, address_child C);
-void connect(List_relasi &LR, List_parent LP, List_child LC, string px, string cx);
-
-int selectMenuParents();
+string menu_masuk();
+int menu_panitia();
+int menu_peserta();
 
 #endif // LIST_PARENT_H_INCLUDED

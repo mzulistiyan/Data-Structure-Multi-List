@@ -4,33 +4,22 @@
 #include <iostream>
 using namespace std;
 
-
+#define info(P) P->info
+#define next(P) P->next
 
 #define first(L) L.first
-#define next(P) P->next
-#define info(P) P->info
-#define child(P) P->child
-#define prev(p) p->prev
-#define last(p) p.last
+#define last(L) L.last
 
 struct Data_peserta{
-    string no_peserta;
-    string nama_peserta;
-    string email;
-    string no_telp;
-    int no_tempat_duduk;
-    string jenis_peserta;
+    string nama_peserta, email, no_telepon, jenis_peserta;
+    int no_peserta, no_tempat_duduk;
 };
 
-
 typedef struct elmlist_child *address_child;
-
-
 
 struct elmlist_child{
     Data_peserta info;
     address_child next;
-    address_child prev;
 };
 
 struct List_child {
@@ -38,23 +27,15 @@ struct List_child {
     address_child last;
 };
 
-
-/** TIDAK PERLU MODIFIKASI */
-void createList(List_child &L);
-void newElm_data(Data_peserta info, address_child &S);
-void printInfo(List_child L);
-void newElm_data(Data_peserta info, address_child &S);
-address_child findNopeserta(List_child &L, string no_peserta);
-void deleteElm(List_child &L, address_child p);
-void hapus_childs(List_child &L ,string no);
-
-void insertFirst(List_child &L, address_child P);
-void insertAfter(List_child &L, address_child Prec, address_child P);
-void insertLast(List_child &L, address_child P);
-void deleteFirst(List_child &L, address_child &P);
-void deleteLast(List_child &L, address_child &P);
-void deleteAfter(List_child &L, address_child Prec, address_child &P);
-
-
+void createList(List_child &Lc);
+void newElm_data(Data_peserta info, address_child &Pc);
+void insertPeserta(List_child &Lc, address_child Pc);
+void deleteFirst(List_child &Lc, address_child &Pc);
+void deleteLast(List_child &Lc, address_child &Pc);
+void deleteAfter(address_child prec, address_child &Pc);
+void DeletePeserta(List_child &Lc, string no_peserta);
+address_child find_namaPeserta(List_child &Lc, string nama_peserta);
+void infoChild(address_child Pc);
+void printChild(List_child Lc);
 
 #endif // LIST_CHILD_H_INCLUDED

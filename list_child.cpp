@@ -1,121 +1,113 @@
 #include "list_child.h"
 
-
-void createList(List_child &L)
-{
-    first(L) = NULL;
-    last(L) = NULL;
+void createList(List_child &Lc) {
+    first(Lc) = NULL;
+    last(Lc) = NULL;
 }
 
-void newElm_data(Data_peserta info, address_child &S)
-{
-    S = new elmlist_child;
-    next(S) = NULL;
-    prev(S) = NULL;
-    info(S) = info;
+void newElm_data(Data_peserta info, address_child &Pc) {
+    Pc = new elmlist_child;
+    info(Pc) = info;
+    next(Pc) = NULL;
 }
 
-void insertFirst(List_child &L, address_child p)
-{
-    if(first(L) == NULL){
-        first(L) = p;
+void insertPeserta(List_child &Lc, address_child Pc) {
+    if (first(Lc) == NULL && last(Lc) == NULL) {
+        first(Lc) = Pc;
+        last(Lc) = Pc;
     } else {
-        next(p) = first(L);
-        first(L) = p;
+        next(Pc) = first(Lc);
+        first(Lc) = Pc;
     }
 }
 
+void deleteFirst(List_child &Lc, address_child &Pc) {
+    Pc = first(Lc);
 
-
-void deleteFirst(List_child &L, address_child &P){
-    P = first(L);
-    if (next(first(L)) == NULL) {
-        first(L) = NULL;
+    if (next(first(Lc)) == NULL) {
+        first(Lc) = NULL;
     } else {
-        first(L) = next(first(L));
+        first(Lc) = next(first(Lc));
     }
-    next(P) = NULL;
-};
 
-void deleteLast(List_child &L, address_child &P){
-    address_child q = first(L);
-    while (next(next(q)) != NULL){
-        q = next(q);
+    next(Pc) = NULL;
+}
+
+void deleteLast(List_child &Lc, address_child &Pc) {
+    address_child Qc = first(Lc);
+
+    while (next(next(Qc)) != NULL) {
+        Qc = next(Qc);
     }
-    P=next(q);
-    next(q)= NULL;
-};
+    Pc = next(Qc);
+    next(Qc) = NULL;
+}
 
-void deleteAfter(List_child &L,address_child Prec, address_child &P){
-    P = next(Prec);
-    next(Prec) = next(P);
-    next(P) = NULL;
-};
+void deleteAfter(address_child prec, address_child &Pc) {
+    Pc = next(prec);
+    next(prec) = next(Pc);
+    next(Pc) = NULL;
+}
 
+void DeletePeserta(List_child &Lc, string nama_peserta) {
+    address_child Pc, Qc, prec;
 
-address_child findNopeserta(List_child &L, string no_peserta)
-{
-    address_child P = first(L);
-    while(P != NULL) {
-        if(info(P).no_peserta==no_peserta) {
-            return P;
+    Pc = find_namaPeserta(Lc, nama_peserta);
+
+    if (Pc == NULL) {
+        cout << "PESERTA TIDAK ADA! HAPUS PESERTA GAGAL." << endl;
+    } else {
+        if (Pc == first(Lc)) {
+            deleteFirst(Lc, Qc);
+        } else if (next(Pc) == NULL) {
+
+            deleteLast(Lc, Qc);
+        } else {
+
+            prec = first(Lc);
+
+            while (next(prec) != Pc){
+                prec = next(prec);
+            }
+
+            deleteAfter(prec, Qc);
         }
-        P = next(P);
     }
+}
+
+address_child find_namaPeserta(List_child &Lc, string nama_peserta) {
+    address_child Pc = first(Lc);
+
+    while (Pc != NULL) {
+        if (info(Pc).nama_peserta == nama_peserta) {
+            return Pc;
+        }
+
+        Pc = next(Pc);
+    }
+
     return NULL;
 }
 
-void hapus_childs(List_child &L ,string no)
-{
-    address_child Prec,Q;
-    address_child P = findNopeserta(L,no);
-    if (P == NULL){
-        cout<<"Data NIP tidak ada";
-    }else{
-        if (P == first(L)){
-            //memanggil procedure deleteFirst
-            deleteFirst(L,Q);
-        }else if(next(P)== NULL){
-            //memanggil procedure deleteLast
-            deleteLast(L, Q);
-        }else{
-            Prec = first(L);
-            while (next(Prec) != P){
-                Prec = next(Prec);
-            }
-            //memanggil procedure deleteAfter
-            deleteAfter(L, Prec, Q);
-        }
+void infoChild(address_child Pc) {
+    cout << "===================== PESERTA ======================" << endl;
+    cout << "No Peserta               :" << info(Pc).no_peserta << endl;
+    cout << "Nama Peserta             :" << info(Pc).nama_peserta << endl;
+    cout << "Email Peserta            :" << info(Pc).email << endl;
+    cout << "No Telpon Peserta        :" << info(Pc).no_telepon << endl;
+    cout << "No Tempat Duduk Peserta  :" << info(Pc).no_tempat_duduk << endl;
+    cout << "Jenis Peserta            :" << info(Pc).jenis_peserta << endl;
     }
-}
 
+void printChild(List_child Lc) {
+    address_child Pc = first(Lc);
 
-void printInfo(List_child L) {
-    address_child P = first(L);
-    while(P !=NULL) {
-        cout<<"===================== PESERTA ======================"<<endl;
-        cout<<"No Peserta                  :"<<info(P).no_peserta<<endl;
-        cout<<"Nama Peserta                :"<<info(P).nama_peserta<<endl;
-        cout<<"Email Peserta               :"<<info(P).email<<endl;
-        cout<<"No Telpon Peserta           :"<<info(P).no_telp<<endl;
-        cout<<"No Tempat Duduk Peserta     :"<<info(P).no_tempat_duduk<<endl;
-        cout<<"Jenis Peserta               :"<<info(P).jenis_peserta<<endl;
-        P = next(P);
+    while (Pc != NULL) {
+        infoChild(Pc);
+        Pc = next(Pc);
     }
-}
 
-int selectMenuParents(){
-    cout<< "===== MENU =====" << endl;
-    cout<< "1. Registrasi Peserta "<< endl;
-    cout<< "2. Delete Akun Peserta" << endl;
-    cout<< "3. Pilih Event" << endl;
-    cout<< "4. Batalkan Event" << endl;
-    cout<< "5. Update Jumlah Data Peserta setiap Event" << endl;
-    cout<< "0. Exit" << endl;
-    cout<< "pilihan menu : ";
-
-    int input = 0;
-    cin>>input;
-
-    return input;
+    if (Pc == NULL) {
+        cout << "TIDAK ADA PESERTA!" << endl;
+    }
 }
